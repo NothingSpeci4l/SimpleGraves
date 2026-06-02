@@ -1,0 +1,20 @@
+name: SimpleGraves
+version: '1.0-Release'
+main: fr.gregwll.graves.GravesPlugin
+api-version: '1.21'
+author: gregwll
+commands:
+  grave:
+    description: List your active graves
+    usage: /grave
+  graveadmin:
+    description: Admin commands for graves
+    usage: /graveadmin [player] [delete] [id]
+    permission: graves.admin
+permissions:
+  graves.admin:
+    description: Access to /graveadmin
+    default: op
+  graves.loot.others:
+    description: Allows looting other players graves
+    default: op

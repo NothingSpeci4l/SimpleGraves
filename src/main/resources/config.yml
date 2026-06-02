@@ -1,0 +1,24 @@
+# SimpleGraves by gregwll
+
+# Grave expiry in seconds (0 = never expires)
+grave-expiry: 600
+
+# Only the owner can loot their grave (ops bypass this)
+only-owner-can-loot: true
+
+# Show a nametag above the grave
+show-nametag: true
+
+# Nametag format — placeholders: {player}, {time}
+nametag-format: "§b{player} §8| §7{time}"
+
+# Worlds where graves are disabled
+worlds-blacklist:
+  - world_nether
+  - world_the_end
+
+# Action when grave expires: drop (items fall on ground) | delete (items are lost)
+expire-action: drop
+
+# Send coordinates to the player on death
+coords-message: true
