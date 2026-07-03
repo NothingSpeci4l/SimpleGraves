@@ -1,6 +1,7 @@
 package fr.gregwll.graves.listener;
 
 import fr.gregwll.graves.GravesPlugin;
+import fr.gregwll.graves.utils.Constents;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,17 +20,30 @@ public class EDeathListener implements Listener {
         Player player = event.getEntity();
         World world = player.getWorld();
 
-        // Vérifier la blacklist des mondes
+        if (event.getKeepInventory()) {
+            String warning = Constents.getPrefix() + "§cWARNING: keepInventory is §l§cENABLED §r§cin world §l"
+                    + world.getName() + "§r§c — graves will NOT be created in this world!";
+
+            GravesPlugin.getInstance().getLogger().severe(
+                    "[GRAVES] WARNING: keepInventory is ENABLED in world '"
+                            + world.getName() + "' — graves will NOT be created!"
+            );
+
+            for (Player online : org.bukkit.Bukkit.getOnlinePlayers()) {
+                if (online.isOp() || online.hasPermission("graves.admin")) {
+                    online.sendMessage(warning);
+                }
+            }
+            return;
+        }
+
         List<String> blacklist = GravesPlugin.getInstance().getConfigManager().getWorldsBlacklist();
         if (blacklist.contains(world.getName())) return;
 
-        // Récupérer les drops
         List<ItemStack> drops = new ArrayList<>(event.getDrops());
         if (drops.isEmpty()) return;
 
-        // Vider les drops vanilla (on les met dans la tombe)
         event.getDrops().clear();
-
         GravesPlugin.getInstance().getGraveManager().createGrave(player, drops);
     }
 }

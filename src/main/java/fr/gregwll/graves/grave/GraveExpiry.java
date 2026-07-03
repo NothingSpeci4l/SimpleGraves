@@ -27,9 +27,5 @@ public class GraveExpiry implements Runnable {
             boolean drop = action.equals("drop");
             graveManager.removeGrave(grave, drop);
         }
-
-        for (Grave grave : GravesPlugin.getInstance().getGraveCache().getAll()) {
-            graveManager.updateNametag(grave);
-        }
     }
 }

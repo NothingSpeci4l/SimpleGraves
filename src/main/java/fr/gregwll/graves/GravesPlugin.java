@@ -8,12 +8,9 @@ import fr.gregwll.graves.files.FileUtils;
 import fr.gregwll.graves.files.GraveSerializationManager;
 import fr.gregwll.graves.grave.GraveExpiry;
 import fr.gregwll.graves.grave.GraveManager;
-import fr.gregwll.graves.listener.EBlockBreakListener;
-import fr.gregwll.graves.listener.EDeathListener;
-import fr.gregwll.graves.listener.EInteractListener;
+import fr.gregwll.graves.grave.NametagUpdateTask;
+import fr.gregwll.graves.listener.*;
 import fr.gregwll.graves.utils.Constents;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -49,24 +46,21 @@ public final class GravesPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new EDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new EInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new EBlockBreakListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EExplosionListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EChunkLoadListener(), this);
 
-        // Lancer la tâche d'expiration toutes les 20 secondes
+        // Expiration toutes les 20 secondes
         Bukkit.getScheduler().runTaskTimer(this, new GraveExpiry(), 20L * 20, 20L * 20);
 
-        getLogger().info("SimpleGraves plugin enabled.");
+        // Mise à jour des nametags toutes les secondes
+        Bukkit.getScheduler().runTaskTimer(this, new NametagUpdateTask(), 20L, 20L);
 
-        int pluginId = 31759;
-        Metrics metrics = new Metrics(this, pluginId);
-
-        // Optional: Add custom charts
-        metrics.addCustomChart(
-                new SimplePie("chart_id", () -> "My value")
-        );
+        getLogger().info("Graves plugin enabled.");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("SimpleGraves plugin disabled.");
+        getLogger().info("Graves plugin disabled.");
     }
 
     private void loadAllGraves() {
@@ -80,7 +74,6 @@ public final class GravesPlugin extends JavaPlugin {
             var grave = graveSerializationManager.deserialize(json);
             if (grave != null) {
                 graveCache.add(grave);
-                // Relancer les particules pour les tombes rechargées
                 graveManager.restoreParticleTask(grave);
             }
         }

@@ -1,4 +1,4 @@
-# SimpleGraves by gregwll
+# Graves Plugin Configuration
 
 # Grave expiry in seconds (0 = never expires)
 grave-expiry: 600
@@ -20,5 +20,24 @@ worlds-blacklist:
 # Action when grave expires: drop (items fall on ground) | delete (items are lost)
 expire-action: drop
 
-# Send coordinates to the player on death
-coords-message: true
+# Send coordinates to the player on death (legacy option, kept for compatibility)
+coords-message: false
+
+# Death messages
+death-message:
+  # Message shown only to the player who died
+  player:
+    enabled: true
+    show-coords: true
+    format: "§fYour grave was created at §7{x} {y} {z} §fin §7{world}§f."
+  # Message broadcast to the whole server
+  broadcast:
+    enabled: false
+    show-coords: true
+    format: "§7{player} §fdied at §7{x} {y} {z} §fin §7{world}§f."
+
+# Sounds
+sounds:
+  enabled: true
+  create: entity_wither_spawn
+  loot: entity_player_levelup

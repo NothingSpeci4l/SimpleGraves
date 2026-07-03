@@ -41,6 +41,44 @@ public class ConfigManager {
         return plugin.getConfig().getBoolean("coords-message", true);
     }
 
+    public boolean isDeathMessagePlayer() {
+        return plugin.getConfig().getBoolean("death-message.player.enabled", true);
+    }
+
+    public boolean isDeathMessagePlayerCoords() {
+        return plugin.getConfig().getBoolean("death-message.player.show-coords", true);
+    }
+
+    public String getDeathMessagePlayerFormat() {
+        return plugin.getConfig().getString("death-message.player.format",
+                "§fYour grave was created at §7{x} {y} {z} §fin §7{world}§f.");
+    }
+
+    public boolean isDeathMessageBroadcast() {
+        return plugin.getConfig().getBoolean("death-message.broadcast.enabled", false);
+    }
+
+    public boolean isDeathMessageBroadcastCoords() {
+        return plugin.getConfig().getBoolean("death-message.broadcast.show-coords", true);
+    }
+
+    public String getDeathMessageBroadcastFormat() {
+        return plugin.getConfig().getString("death-message.broadcast.format",
+                "§7{player} §fdied at §7{x} {y} {z} §fin §7{world}§f.");
+    }
+
+    public boolean isSoundEnabled() {
+        return plugin.getConfig().getBoolean("sounds.enabled", true);
+    }
+
+    public String getSoundCreate() {
+        return plugin.getConfig().getString("sounds.create", "entity_wither_spawn");
+    }
+
+    public String getSoundLoot() {
+        return plugin.getConfig().getString("sounds.loot", "entity_player_levelup");
+    }
+
     public void reload() {
         plugin.reloadConfig();
     }

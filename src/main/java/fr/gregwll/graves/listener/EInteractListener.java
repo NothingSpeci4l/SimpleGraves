@@ -47,6 +47,7 @@ public class EInteractListener implements Listener {
         player.sendMessage(Constents.getPrefix() + "§fYou retrieved §l"
                 + grave.getOwnerName() + "§r§f's grave.");
 
+        GravesPlugin.getInstance().getGraveManager().playSoundLoot(player.getLocation());
         GravesPlugin.getInstance().getGraveManager().removeGrave(grave, false);
     }
 }
