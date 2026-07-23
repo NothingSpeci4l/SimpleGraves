@@ -2,6 +2,8 @@
 **A lightweight, feature-rich grave plugin for Minecraft SMP servers.**
 When you die, your items are stored in a grave — retrieve them by right-clicking it.
 
+DL => https://modrinth.com/user/gregwll
+
 ---
 
 ## ✨ Features
